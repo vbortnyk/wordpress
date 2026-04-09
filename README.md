@@ -4,47 +4,28 @@ This project provides a containerized setup for running a WordPress website usin
 
 It includes a preconfigured environment with WordPress and MariaDB, managed via a `docker-compose.yml` file and environment variables defined in a `.env` file.
 
-The purpose of this project is to simplify local WordPress development and setup, provide persistent storage for both website files and the database using Docker volumes, demonstrate how to run a full web application stack using containerization.
-
-This setup allows you to quickly start, stop, and recreate the entire WordPress environment without manual installation of dependencies on the host system.
-
-## Table of contents
-- [Requirements](#requirements)
+## Table of Contents
+- [Prerequisites](#prerequisites)
 - [Quick start](#quick-start)
-- [Data persistance](#data-persistance)
-- [Networking](#-and-networking)
+- [Usage](#usage)
 
-
-### Requirements
+### Prerequisites
  - Docker installed on your system
  - Docker Compose (usually included with Docker Desktop)
- - Basic knowledge of running commands in a terminal
- - A system that supports Docker (Linux, macOS, or Windows)
- - Internet connection to pull required images:
-    - WordPress
-    - MariaDB
 
 ### Quick start
 Clone the repository:
 ```bash
 $ git clone git@github.com:vbortnyk/wordpress.git
-$ cd <your-repo-folder>
+$ cd wordpress
 ```
 The `.env-template` file contains all required environment variables. Rename it to `.env` and adjust the values according to your local setup.
 ```bash
 $ mv .env-template .env
 ```
 Set values to environment variables:
-```bash
-WORDPRESS_IMAGE=
-MARIADB_IMAGE=
-```
-Reommended images: 
- - Wordpress: `wordpress:6.4-apache`
- - MriaDB: `mariadb:latest`
 
-
-Adjust values like database name, user, and password.
+Adjust values like database name, user, and password. Make sure you use secure credentials
 ```bash
 MARIADB_DATABASE= #Create a database with this name automatically when the container starts
 MARIADB_USER= #This user is created automatically when the container starts
@@ -62,8 +43,9 @@ Open your browser and access WordPress:
 ```
 Follow the WordPress installation wizard and connect it to the database (MariaDB).
 
+### Usage
 
-### Data Persistence
+#### Data Persistance
 The database (MariaDB) stores its data in a Docker volume mounted to: `/var/lib/mysql`
 
 The WordPress files (WordPress) are stored in a volume mounted to: `/var/www/html`
@@ -72,7 +54,7 @@ Additionally, the services are configures with the restart policy `unless-stoppe
 
 This configuration ensures that containers automatically restart after as system reboot or Docker restart, unless they are manually stopped.
 
-### Networking
+#### Networking
 All services run on a shared network created by Docker Compose.
 
 Containers communicate using service names as hostnames

@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: ${WORDPRESS_IMAGE}
+    image: wordpress:6.4-apache
     ports:
       - 8080:80
     environment:
@@ -15,7 +15,7 @@ services:
     
 
   maria_db:
-    image: ${MARIADB_IMAGE}
+    image: mariadb:11.8.6
     environment:
       MARIADB_DATABASE: ${MARIADB_DATABASE} 
       MARIADB_USER: ${MARIADB_USER}
