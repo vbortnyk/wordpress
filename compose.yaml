@@ -1,0 +1,31 @@
+services:
+  wordpress:
+    image: wordpress:6.4-apache
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: maria_db
+      WORDPRESS_DB_USER: ${MARIADB_USER}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+      WORDPRESS_DEBUG: 1
+    restart: unless-stopped
+    volumes:
+      - wp_data:/var/lib/html
+    
+
+  maria_db:
+    image: mariadb:11.8.6
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE} 
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  wp_data:
+  db_data:
+  
